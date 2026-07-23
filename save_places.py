@@ -8,15 +8,14 @@ from agents.weather import get_weather
 from agents.research import get_research_results, llm_coordinates
 from agents.vector_store import save_to_db
 
-
 class SaveLocationState(TypedDict):
     """State for every location that is saved"""
     name: str
-    address: str
-    city_or_town: str
-    location_type: str # e.g. cafe,resturant,activity
-    opening_times: list 
-    indoor_or_outdoor: str
+    address: NotRequired[str]
+    city_or_town: NotRequired[str]
+    location_type: NotRequired[str] # e.g. cafe,resturant,activity
+    opening_times: NotRequired[list] 
+    indoor_or_outdoor: NotRequired[str]
     recommendations: NotRequired[str]
     latitude: NotRequired[str]
     longitude: NotRequired[str]
@@ -25,10 +24,13 @@ class SaveLocationState(TypedDict):
 class SaveLocationForLater():
     def __init__(self):
         workflow = StateGraph(SaveLocationState)
+
+        #Nodes
         workflow.add_node("llm_coordinates", llm_coordinates)
         workflow.add_node("get_research_results", get_research_results)
         workflow.add_node("save_to_db", save_to_db)
        
+       #Edges
         workflow.add_edge(START, "get_research_results")
         workflow.add_edge("get_research_results", "llm_coordinates")
         workflow.add_edge("llm_coordinates", "save_to_db")
@@ -40,15 +42,7 @@ class SaveLocationForLater():
     def invoke(self, name: str) -> SaveLocationState:
         return self.graph.invoke(
             {
-                "name": name,
-                "address": "",
-                "city_or_town": "",
-                "location_type": "",
-                "indoor_or_outdoor": "",
-                "opening_times": [{"Monday": []},{"Tuesday": []},{"Wednesday": []},{"Thursday": []},{"Friday": []},{"Saturday": []},{"Sunday": []}],  
-                "recommendations": "",
-                "latitude": 0.0,
-                "longitude": 0.0
+                "name": name
             }
         )
 
