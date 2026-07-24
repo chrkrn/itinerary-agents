@@ -4,7 +4,6 @@ import os
 from langgraph.graph import START, END, StateGraph
 from typing_extensions import NotRequired, TypedDict
 
-from agents.weather import get_weather
 from agents.research import get_research_results, llm_coordinates
 from agents.vector_store import save_to_db
 

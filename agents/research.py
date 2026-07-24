@@ -55,7 +55,7 @@ def get_research_results(state):
     prompt = (
         f"Read the context and return the name, address, city_or_town, opening_times, indoor_or_outdoor, recommendations, and location_type of the business {state.get('name')} as JSON with only the pre mentioned keys"
         "location_type can be one of the following: resturant, cafe, museum, live venue, activity, park"
-        "opening_times must be in the format: {'Monday': ['9am-12pm', '3pm-6pm'], 'Tuesday': 'Closed'}. If the location is open 24 hours use this format {'Monday': ['12-am-12pm']}"
+        "opening_times must be in the format: {'Monday': ['9am-12pm', '3pm-6pm'], 'Tuesday': 'Closed'}. If the location is open 24 hours use this format {'Monday': ['12-am-12pm']}. If no opening times are found, set this to an empty list."
         "indoor_or_outdoor can be one of three values: indoor, outdoor or indoor_and_outdoor. If the place is completely in a building, choose indoor. If the place is outside (e.g. a food market, a food stall, a park), choose outdoor. If a place has both indoor and outdoor public facilities, choose indoor_and_outdoor"
         "recommendations can be up to 3 sentences, referring to any popular thing to do at the location, e.g. any specialties that a resturant or cafe do, a certain spot in a park for a nice view or the best value class in art college. Only use the provided context, and if nothing shows up, answer with 'None'"
         f'"name", "address", "city_or_town", "location_type", "opening_times", "recommendations: {resp}'

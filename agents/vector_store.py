@@ -47,10 +47,9 @@ def save_to_db(state):
 def query_destination(query: str, n_results: int = 5):
     """Return stored information from db"""
     collection = get_collection("places")
-
-    logger.info(f"Total Count of collection {collection_name}: {count}")
-
     count = collection.count()
+    
+    logger.info(f"Total Count of collection: {count}")
     if count == 0:
         return []
 
